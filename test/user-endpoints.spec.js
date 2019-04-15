@@ -176,13 +176,13 @@ describe('User Endpoints', function () {
           total_score: 0,
           words: [
             { original: 'memorize', translation: 'memorizar' },
-            { original: 'hola', translation: 'hello' },
-            { original: 'casa', translation: 'house' },
-            { original: 'desarrollador', translation: 'developer' },
-            { original: 'traducir', translation: 'translate' },
-            { original: 'increible', translation: 'amazing' },
-            { original: 'perro', translation: 'dog' },
-            { original: 'gato', translation: 'cat' },
+            { original: 'hello', translation: 'hola' },
+            { original: 'house', translation: 'casa' },
+            { original: 'developer', translation: 'desarrollador' },
+            { original: 'translate', translation: 'traducir' },
+            { original: 'amazing', translation: 'increible' },
+            { original: 'dog', translation: 'perro' },
+            { original: 'cat', translation: 'gato' },
           ]
         }
         return supertest(app)
