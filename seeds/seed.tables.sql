@@ -23,7 +23,7 @@ INSERT INTO "word" ("id", "language_id", "original", "translation", "next")
 VALUES
   (1, 1, 'memorizar', 'memorize', 2),
   (2, 1, 'hola', 'hello', 3),
-  (3, 1, 'case', 'house', 4),
+  (3, 1, 'casa', 'house', 4),
   (4, 1, 'desarrollador', 'developer', 5),
   (5, 1, 'traducir', 'translate', 6),
   (6, 1, 'increible', 'amazing', 7),
