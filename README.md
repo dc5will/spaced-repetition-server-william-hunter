@@ -49,3 +49,7 @@ Run the tests mode `npm test`
 Run the migrations up `npm run migrate`
 
 Run the migrations down `npm run migrate -- 0`
+
+Seed the database `npm run seed`
+
+Seed the test database `npm run seedtest`
