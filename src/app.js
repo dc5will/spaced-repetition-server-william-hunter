@@ -13,10 +13,10 @@ const app = express()
 app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'common', {
   skip: () => NODE_ENV === 'test',
 }))
+app.use(helmet())
 app.use(cors({
   origin: CLIENT_ORIGIN
-}));
-app.use(helmet())
+}))
 
 app.use('/api/auth', authRouter)
 app.use('/api/language', languageRouter)
