@@ -1,6 +1,7 @@
 const express = require('express')
 const LanguageService = require('./language-service')
 const { requireAuth } = require('../middleware/jwt-auth')
+const LinkedList = require('../LinkedList');
 
 const languageRouter = express.Router()
 
@@ -45,14 +46,50 @@ languageRouter
 
 languageRouter
   .get('/head', async (req, res, next) => {
-    // implement me
-    res.send('implement me!')
+    try {
+      const word = await LanguageService.getLanguageWords(
+        req.app.get('db'),
+        req.language.id,
+      )
+
+      const language = await LanguageService.getUsersLanguage(
+        req.app.get('db'),
+        req.user.id,
+      )
+
+      if (!language)
+        return res.status(404).json({
+          error: `You don't have any languages`,
+        })
+
+      res.json({
+        // get word to learn -> word.original
+        // get current total score -> word.total_score
+        // get number of correct guesses -> word.correct_count
+        // get number of incorrect guesses -> word.incorrect_count
+      });
+    } catch (error) {
+      next(error)
+    }
   })
 
 languageRouter
   .post('/guess', async (req, res, next) => {
-    // implement me
-    res.send('implement me!')
+    try {
+      const word = await LanguageService.getLanguageWords(
+        req.app.get('db'),
+        req.language.id,
+      )
+      const language = await LanguageService.getUsersLanguage(
+        req.app.get('db'),
+        req.user.id,
+      )
+      // thinking of how to implement post to LL
+      res.json(console.log(res))
+      next()
+    } catch (error) {
+      next(error)
+    }
   })
 
 module.exports = languageRouter
