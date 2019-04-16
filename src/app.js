@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const { NODE_ENV, CLIENT_ORIGIN } = require("./config");
+const { NODE_ENV } = require("./config");
 const errorHandler = require("./middleware/error-handler");
 const authRouter = require("./auth/auth-router");
 const languageRouter = require("./language/language-router");
@@ -17,9 +17,7 @@ app.use(
 );
 app.use(helmet());
 app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
+  cors()
 );
 
 app.use("/api/auth", authRouter);
