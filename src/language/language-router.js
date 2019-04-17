@@ -52,11 +52,6 @@ languageRouter
         req.language.id,
       )
 
-      if (!language)
-        return res.status(404).json({
-          error: `You don't have any languages`,
-        })
-
       res.json({
         // expected response:
         // "nextWord": "Testnextword",
@@ -77,15 +72,12 @@ languageRouter
 languageRouter
   .post('/guess', async (req, res, next) => {
     try {
-      const word = await LanguageService.getLanguageWords(
+      const nextWord = await LanguageService.getNextWord(
         req.app.get('db'),
         req.language.id,
       )
-      const language = await LanguageService.getUsersLanguage(
-        req.app.get('db'),
-        req.user.id,
-      )
-      // thinking of how to implement post to LL
+
+      // thinking of how to implement
       res.json(console.log(res))
       next()
     } catch (error) {
