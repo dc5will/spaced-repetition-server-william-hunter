@@ -67,14 +67,14 @@ languageRouter.get("/head", async (req, res, next) => {
 
 languageRouter.post("/guess", async (req, res, next) => {
   try {
-    const guess = req.body;
+    const { guess } = req.body
 
-    if (!guess)
+    if (!req.body.guess)
       return res.status(400).json({
         error: `Missing 'guess' in request body`
       });
 r
-    const wods = await LanguageService.getLanguageWords(
+    const words = await LanguageService.getLanguageWords(
       req.app.get("db"),
       req.language.id
     );
