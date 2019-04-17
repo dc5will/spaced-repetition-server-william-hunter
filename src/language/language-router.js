@@ -67,14 +67,14 @@ languageRouter.get("/head", async (req, res, next) => {
 
 languageRouter.post("/guess", async (req, res, next) => {
   try {
-    const { guess } = req.body;
+    const guess = req.body;
 
     if (!guess)
       return res.status(400).json({
         error: `Missing 'guess' in request body`
       });
-
-    const words = await LanguageService.getLanguageWords(
+r
+    const wods = await LanguageService.getLanguageWords(
       req.app.get("db"),
       req.language.id
     );
@@ -124,6 +124,7 @@ languageRouter.post("/guess", async (req, res, next) => {
       ll.head.value.memory_value = 1;
       ll.head.value.incorrect_count += 1;
       // move question back M places in the list?
+      // one place further down from the head
       ll.insertAt(head.value, ll.head.value.memory_value) // ?????
     }
     res.json({
