@@ -11,6 +11,7 @@
     "predeploy": "npm audit && npm run migrate-production",
     "deploy": "git push heroku master",
     "seed": "psql -U dunder-mifflin -d spaced-repetition -a -f seeds/seed.tables.sql",
+    "trunc": "psql -U dunder-mifflin -d spaced-repetition -a -f seeds/trunc.tables.sql",
     "seedtest": "psql -U dunder-mifflin -d spaced-repetition-test -a -f seeds/seed.tables.sql",
     "migrate-production": "postgrator --config postgrator-production-config.js"
   },

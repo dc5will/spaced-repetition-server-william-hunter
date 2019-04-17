@@ -1,0 +1,4 @@
+TRUNCATE
+  "word",
+  "language",
+  "user";

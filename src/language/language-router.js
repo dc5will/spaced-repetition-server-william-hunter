@@ -71,16 +71,17 @@ languageRouter
 
 languageRouter
   .post('/guess', async (req, res, next) => {
+    const { guess } = req.body;  
     try {
-      const nextWord = await LanguageService.getNextWord(
-        req.app.get('db'),
-        req.language.id,
-      )
+      if (!guess) {
+        res.status(400).json({
+          error: `Missing 'guess' in request body`
+        });
+      }
 
-      // thinking of how to implement
-      res.json(console.log(res))
+      // working on implementing this
       next()
-    } catch (error) {
+    } catch(error){
       next(error)
     }
   })
