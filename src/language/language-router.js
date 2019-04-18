@@ -86,25 +86,16 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
       req.user.id
     );
 
-    // Given a list of questions with corresponding "memory values", M, starting at 1:
-    // Take the first question in the list
-    // Ask the question
-    // If the answer was correct:
-    // Double the value of M
-    // Else, if the answer was wrong:
-    // Reset M to 1
-    // Move the question back M places in the list
-    // Use a singly linked list to do this
-
-    // create linked list
+    // create linked list and populating ll with words from db
     const ll = new LinkedList();
-    words.map(word => ll.insertLast(word)); // mapping words from db into LL
+    words.map(word => ll.insertLast(word)); 
 
     let isCorrect;
     let currNode = ll.head;
     let answer = ll.head.value.translation;
     let nextWord = currNode.next.value.original;
     let correct_count = currNode.next.value.correct_count;
+    let incorrect_count = currNode.next.value.incorrect_count;
     let memory_value = currNode.value.memory_value;
     // {
     //   "nextWord": "test-next-word-from-correct-guess",
@@ -116,10 +107,11 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
     // }
     if (guess === answer) {
       isCorrect = true;
-      currNode.value.correct_count += 1;
-      language.total_score += 1;
-      memory_value *= 2;
+      currNode.value.correct_count++;
+      language.total_score++;
       currNode.value.memory_value = memory_value;
+      memory_value *= 2;
+      console.log(currNode.value.memory_value)
       ll.head = currNode.next;
       ll.insertAt(currNode.value, memory_value);
     } else {
@@ -132,35 +124,36 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
       //   "isCorrect": false
       // }
       isCorrect = false;
-      ll.head.value.incorrect_count += 1;
+      ll.head.value.incorrect_count++;
       currNode.value.memory_value = 1; // set memory value to 1 on incorrect
+      console.log(currNode.value.memory_value)
       ll.head = currNode.next;
       ll.insertAt(currNode.value, memory_value);
     }
 
     // create new array to updated array into db
-    let newArr = [];
+    let newDB = [];
     let tempNode = ll.head;
     while (tempNode.next !== null) {
-      newArr = [...newArr, tempNode.value];
+      newDB.push(tempNode.value) 
       tempNode = tempNode.next;
     }
-    newArr = [...newArr, tempNode.value];
+    newDB.push(tempNode.value) 
 
     await LanguageService.insertWord(
       req.app.get("db"),
-      newArr,
+      newDB,
       language.id,
       language.total_score
     );
 
     res.json({
-      answer: answer,
-      isCorrect: isCorrect,
-      nextWord: nextWord,
+      answer,
+      isCorrect,
+      nextWord,
       totalScore: language.total_score,
       wordCorrectCount: correct_count,
-      wordIncorrectCount: ll.head.value.incorrect_count
+      wordIncorrectCount: incorrect_count,
     });
     next();
   } catch (error) {

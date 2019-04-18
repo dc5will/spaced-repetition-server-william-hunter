@@ -49,14 +49,21 @@ const LanguageService = {
   insertWord(db, words, language_id, total_score) {
     return db.transaction(trx => {
       return Promise.all([
-        trx("language")
+        db("language")
+          .transacting(trx)
           .where({ id: language_id })
-          .update({ total_score, head: words[0].id }),
-        ...words.map(word => {
-          return trx("word")
+          .update({
+            total_score,
+            head: words[0].id
+          }),
+        ...words.map(word =>
+          db("word")
+            .transacting(trx)
             .where({ id: word.id })
-            .update({ ...word });
-        })
+            .update({
+              ...word
+            })
+        )
       ]);
     });
   }
