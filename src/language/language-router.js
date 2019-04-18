@@ -4,6 +4,7 @@ const { requireAuth } = require("../middleware/jwt-auth");
 const LinkedList = require("../LinkedList");
 
 const languageRouter = express.Router();
+const jsonBodyParser = express.json();
 
 languageRouter.use(requireAuth).use(async (req, res, next) => {
   try {
@@ -65,18 +66,24 @@ languageRouter.get("/head", async (req, res, next) => {
   }
 });
 
-languageRouter.post("/guess", async (req, res, next) => {
+languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
   try {
-    const { guess } = req.body
-
-    if (!req.body.guess)
-      return res.status(400).json({
+    const guess = req.body.guess;
+    // throw error is req body is empty
+    if (!guess) {
+      res.status(400).json({
         error: `Missing 'guess' in request body`
       });
-r
+    }
+
     const words = await LanguageService.getLanguageWords(
       req.app.get("db"),
       req.language.id
+    );
+
+    const language = await LanguageService.getUsersLanguage(
+      req.app.get("db"),
+      req.user.id
     );
 
     // Given a list of questions with corresponding "memory values", M, starting at 1:
@@ -89,28 +96,32 @@ r
     // Move the question back M places in the list
     // Use a singly linked list to do this
 
-    // pseudocode
+    // create linked list
     const ll = new LinkedList();
     words.map(word => ll.insertLast(word)); // mapping words from db into LL
-    console.log(ll);
-
-    const currNode = ll.head;
-    const answer = currNode.value.translation;
 
     let isCorrect;
-    if (guess === answer) {
-      // {
-      //   "nextWord": "test-next-word-from-correct-guess",
-      //   "wordCorrectCount": 111,
-      //   "wordIncorrectCount": 222,
-      //   "totalScore": 333,
-      //   "answer": "test-answer-from-correct-guess",
-      //   "isCorrect": true
-      // }
+    let currNode = ll.head;
+    let answer = ll.head.value.translation;
+    let nextWord = currNode.next.value.original;
+    let correct_count = currNode.next.value.correct_count;
+    let memory_value = currNode.value.memory_value;
+    // {
+    //   "nextWord": "test-next-word-from-correct-guess",
+    //   "wordCorrectCount": 111,
+    //   "wordIncorrectCount": 222,
+    //   "totalScore": 333,
+    //   "answer": "test-answer-from-correct-guess",
+    //   "isCorrect": true
+    // }
+    if (guess === ll.head.value.translation) {
       isCorrect = true;
-      ll.head.value.memory_value *= 2;
-      ll.head.value.correct_count += 1;
-      ll.head.value.total_score += 1;
+      currNode.value.correct_count += 1;
+      language.total_score += 1;
+      memory_value *= 2;
+      currNode.value.memory_value = memory_value;
+      ll.head = currNode.next;
+      ll.insertAt(currNode.value, memory_value);
     } else {
       // {
       //   "nextWord": "test-next-word-from-incorrect-guess",
@@ -121,19 +132,35 @@ r
       //   "isCorrect": false
       // }
       isCorrect = false;
-      ll.head.value.memory_value = 1;
       ll.head.value.incorrect_count += 1;
-      // move question back M places in the list?
-      // one place further down from the head
-      ll.insertAt(head.value, ll.head.value.memory_value) // ?????
+      currNode.value.memory_value = 1; // set memory value to 1 on incorrect
+      ll.head = currNode.next;
+      ll.insertAt(currNode.value, memory_value);
     }
+
+    // create new array to updated array into db
+    let newArr = [];
+    let tempNode = ll.head;
+    while (tempNode.next !== null) {
+      newArr = [...newArr, tempNode.value];
+      tempNode = tempNode.next;
+    }
+    newArr = [...newArr, tempNode.value];
+
+    await LanguageService.insertWord(
+      req.app.get("db"),
+      newArr,
+      language.id,
+      language.total_score
+    );
+
     res.json({
-      answer,
-      isCorrect,
-      nextWord: ll.head.value.original,
-      wordCorrectCount: ll.head.correct_count,
-      wordIncorrectCount: ll.head.incorrect_count,
-      totalScore: ll.head.total_score
+      answer: answer,
+      isCorrect: isCorrect,
+      nextWord: nextWord,
+      totalScore: language.total_score,
+      wordCorrectCount: correct_count,
+      wordIncorrectCount: ll.head.value.incorrect_count
     });
     next();
   } catch (error) {
