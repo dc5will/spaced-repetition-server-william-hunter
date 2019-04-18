@@ -114,7 +114,7 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
     //   "answer": "test-answer-from-correct-guess",
     //   "isCorrect": true
     // }
-    if (guess === ll.head.value.translation) {
+    if (guess === answer) {
       isCorrect = true;
       currNode.value.correct_count += 1;
       language.total_score += 1;
