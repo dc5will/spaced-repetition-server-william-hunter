@@ -1,7 +1,7 @@
 const express = require("express");
 const LanguageService = require("./language-service");
 const { requireAuth } = require("../middleware/jwt-auth");
-const LinkedList = require("../LinkedList");
+const LinkedList = require("./LinkedList");
 
 const languageRouter = express.Router();
 const jsonBodyParser = express.json();
@@ -107,11 +107,10 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
     // }
     if (guess === answer) {
       isCorrect = true;
-      currNode.value.correct_count++;
-      language.total_score++;
+      currNode.value.correct_count += 1;
+      language.total_score += 1;
       currNode.value.memory_value = memory_value;
       memory_value *= 2;
-      console.log(currNode.value.memory_value)
       ll.head = currNode.next;
       ll.insertAt(currNode.value, memory_value);
     } else {
@@ -124,12 +123,14 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
       //   "isCorrect": false
       // }
       isCorrect = false;
-      ll.head.value.incorrect_count++;
+      ll.head.value.incorrect_count += 1;
       currNode.value.memory_value = 1; // set memory value to 1 on incorrect
       console.log(currNode.value.memory_value)
       ll.head = currNode.next;
       ll.insertAt(currNode.value, memory_value);
     }
+
+    // ll.shiftHeadBy(ll.head.value.memory_value)
 
     // create new array to updated array into db
     let newDB = [];
