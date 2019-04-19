@@ -120,7 +120,6 @@ class LinkedList {
     console.log(previousNode.next);
     return console.log(`Successfully added at ${position}`);
   }
-
 }
 
 module.exports = LinkedList;

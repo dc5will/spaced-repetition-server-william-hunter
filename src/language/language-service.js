@@ -29,7 +29,7 @@ const LanguageService = {
       .where({ language_id });
   },
 
-  getHead(db, language_id) {
+  getListHead(db, language_id) {
     return db
       .from("word")
       .join("language", "word.id", "language.head")
@@ -37,16 +37,8 @@ const LanguageService = {
       .first();
   },
 
-  getNextWord(db, id) {
-    return db
-      .from("word")
-      .select("language_id", "original", "correct_count", "incorrect_count")
-      .where({ id })
-      .first();
-  },
-
-  // passing last 2 server tests
-  insertWord(db, words, language_id, total_score) {
+  // update list in db
+  persistDB(db, words, language_id, total_score) {
     return db.transaction(trx => {
       return Promise.all([
         db("language")
@@ -61,7 +53,7 @@ const LanguageService = {
             .transacting(trx)
             .where({ id: word.id })
             .update({
-              ...word
+              ...word,
             })
         )
       ]);
