@@ -7,6 +7,8 @@
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
     "migrate": "postgrator --config postgrator-config.js",
+    "seed": "psql -U dunder-mifflin -d spaced-repetition -a -f seeds/seed.tables.sql",
+    "seedtest": "psql -U dunder-mifflin -d spaced-repetition-test -a -f seeds/seed.tables.sql",
     "start": "node src/server.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master"
