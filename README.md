@@ -53,4 +53,11 @@ Run the migrations down `npm run migrate -- 0`
 
 Seed the database `npm run seed`
 
+<<<<<<< HEAD
 Seed the test database `npm run seedtest`
+=======
+Trunc the database `npm run trunc`
+
+Seed the test database `npm run seedtest`
+
+>>>>>>> 70ec6f706a4aa40032d020002a59a2475d3f1bda
