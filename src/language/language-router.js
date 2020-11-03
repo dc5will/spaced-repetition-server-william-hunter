@@ -37,7 +37,6 @@ languageRouter
         language: req.language,
         words,
       })
-      console.log(words)
       next()
     } catch (error) {
       next(error)
