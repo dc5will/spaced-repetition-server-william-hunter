@@ -57,30 +57,6 @@ const UserService = {
         .select("last_value")
         .first();
 
-<<<<<<< HEAD
-        const languageWords = [
-          ['memorize', 'memorizar', 2],
-          ['hello', 'hola', 3],
-          ['house', 'casa', 4],
-          ['good', 'bueno', 5],
-          ['where', 'donde', 6],
-          ['amazing', 'increible', 7],
-          ['dog', 'perro', 8],
-          ['cat', 'gato', 9],
-          ['mister', 'senor', 10],
-          ['time', 'tiempo', 11],
-          ['truth', 'verdad', 12],
-          ['because', 'porque', 13],
-          ['very', 'muy', 14],
-          ['that', 'que', 15],
-          ['more', 'mas', 16],
-          ['now', 'ahora', 17],
-          ['something', 'algo', 18],
-          ['us', 'nos', 19],
-          ['you', 'tu', 20],
-          ['last', 'ultimo', null],
-        ]
-=======
       const languageWords = [
         ['memorize', 'memorizar', 2],
         ['hello', 'hola', 3],
@@ -103,7 +79,6 @@ const UserService = {
         ['you', 'tu', 20],
         ['last', 'ultimo', null],
       ]
->>>>>>> 1976d8674eee998c68f705d88e7c2b1ac6d46b81
 
       const [languageHeadId] = await trx.into("word").insert(
         languageWords.map(([original, translation, nextInc]) => ({
