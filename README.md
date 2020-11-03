@@ -57,4 +57,4 @@ Trunc the database `npm run trunc`
 
 Seed the test database `npm run seedtest`
 
-Heroku
+Heroku test
