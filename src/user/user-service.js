@@ -57,16 +57,28 @@ const UserService = {
         .select('last_value')
         .first()
 
-      const languageWords = [
-        ['memorize', 'memorizar', 2],
-        ['hello', 'hola', 3],
-        ['house', 'casa', 4],
-        ['developer', 'desarrollador', 5],
-        ['translate', 'traducir', 6],
-        ['amazing', 'increible', 7],
-        ['dog', 'perro', 8],
-        ['cat', 'gato', null],
-      ]
+        const languageWords = [
+          ['memorize', 'memorizar', 2],
+          ['hello', 'hola', 3],
+          ['house', 'casa', 4],
+          ['good', 'bueno', 5],
+          ['where', 'donde', 6],
+          ['amazing', 'increible', 7],
+          ['dog', 'perro', 8],
+          ['cat', 'gato', 9],
+          ['mister', 'senor', 10],
+          ['time', 'tiempo', 11],
+          ['truth', 'verdad', 12],
+          ['because', 'porque', 13],
+          ['very', 'muy', 14],
+          ['that', 'que', 15],
+          ['more', 'mas', 16],
+          ['now', 'ahora', 17],
+          ['something', 'algo', 18],
+          ['us', 'nos', 19],
+          ['you', 'tu', 20],
+          ['last', 'ultimo', null],
+        ]
 
       const [languageHeadId] = await trx
         .into('word')
