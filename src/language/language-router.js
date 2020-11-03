@@ -32,12 +32,12 @@ languageRouter
       const words = await LanguageService.getLanguageWords(
         req.app.get('db'),
         req.language.id,
-      )
-
+        )
       res.json({
         language: req.language,
         words,
       })
+      console.log(words)
       next()
     } catch (error) {
       next(error)

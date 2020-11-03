@@ -24,11 +24,23 @@ VALUES
   (1, 1, 'memorize', 'memorizar', 2),
   (2, 1, 'hello', 'hola', 3),
   (3, 1, 'house', 'casa', 4),
-  (4, 1, 'developer', 'desarrollador', 5),
-  (5, 1, 'translate', 'traducir', 6),
+  (4, 1, 'good', 'bueno', 5),
+  (5, 1, 'where', 'donde', 6),
   (6, 1, 'amazing', 'increible', 7),
   (7, 1, 'dog', 'perro', 8),
-  (8, 1, 'cat', 'gato', null);
+  (8, 1, 'cat', 'gato', 9),
+  (9, 1, 'mister', 'senor', 10),
+  (10, 1, 'time', 'tiempo', 11),
+  (11, 1, 'truth', 'verdad', 12),
+  (12, 1, 'because', 'porque', 13),
+  (13, 1, 'very', 'muy', 14),
+  (14, 1, 'that', 'que', 15),
+  (15, 1, 'more', 'mas', 16),
+  (16, 1, 'now', 'ahora', 17),
+  (17, 1, 'something', 'algo', 18),
+  (18, 1, 'us', 'nos', 19),
+  (19, 1, 'you', 'tu', 20),
+  (20, 1, 'last', 'ultimo', null);
 
 UPDATE "language" SET head = 1 WHERE id = 1;
 
