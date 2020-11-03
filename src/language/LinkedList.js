@@ -9,9 +9,11 @@ class LinkedList {
   constructor() {
     this.head = null;
   }
+
   insertFirst(item) {
     this.head = new _Node(item, this.head);
   }
+
   insertLast(item) {
     if (this.head === null) {
       this.insertFirst(item);
@@ -23,103 +25,141 @@ class LinkedList {
       tempNode.next = new _Node(item, null);
     }
   }
-  find(item) {
-    let currNode = this.head;
+
+  insertBefore(item, nextItem) {
     if (!this.head) {
       return null;
     }
-    while (currNode.value !== item) {
-      if (currNode.next === null) {
-        return null;
-      } else {
-        currNode = currNode.next;
-      }
+    if (this.head.value === nextItem) {
+      this.insertFirst(item);
     }
-    return currNode;
+
+    let tempNode = this.head;
+    let previousNode = this.head;
+
+    while ((tempNode !== null) && (tempNode.value !== nextItem)) {
+      previousNode = tempNode;
+      tempNode = tempNode.next;
+    }
+    if (tempNode === null) {
+      return;
+    }
+    previousNode.next = new _Node(item, tempNode);
   }
+
+  insertAfter(item, prevItem) {
+    if (!this.head) {
+      return null;
+    }
+    
+    let tempNode = this.head;
+
+    while ((tempNode !== null) && (tempNode.value !== prevItem)) {
+      tempNode = tempNode.next;
+    }
+    if (tempNode === null) {
+      return;
+    }
+    const tempNext = tempNode.next;
+    tempNode.next = new _Node(item, tempNext);
+  }
+
+  insertAt(item, index) {
+    if (!this.head) {
+      return null;
+    }
+
+    let tempNode = this.head;
+    let previousNode = this.head;
+    let tempIndex = 0;
+
+    while((tempNode !== null) && (tempIndex !== index)) {
+      previousNode = tempNode;
+      tempNode = tempNode.next;
+      tempIndex++;
+    }
+    if (tempNode === null && tempIndex !== index) {
+      return;
+    }
+    previousNode.next = new _Node(item, tempNode);
+  }
+
   remove(item) {
     if (!this.head) {
       return null;
     }
+
     if (this.head.value === item) {
       this.head = this.head.next;
       return;
     }
-    let currNode = this.head;
+
+    let tempNode = this.head;
     let previousNode = this.head;
 
-    while (currNode !== null && currNode.value !== item) {
-      previousNode = currNode;
-      currNode = currNode.next;
+    while ((tempNode !== null) && (tempNode.value !== item)) {
+      previousNode = tempNode;
+      tempNode = tempNode.next;
     }
-    if (currNode === null) {
-      console.log('Item not found');
+    if (tempNode === null) {
       return;
     }
-    previousNode.next = currNode.next;
-    return console.log('removed');
+    previousNode.next = tempNode.next;
   }
-  insertBefore(newNode, value) {
-    let currNode = this.head;
-    let previousNode = this.head;
 
+  find(item) {
     if (!this.head) {
       return null;
     }
 
-    while (currNode.value !== value) {
-      if (currNode.next === null) {
-        return new Error('Not found');
+    let tempNode = this.head;
+    while (tempNode.value !== item) {
+      if (tempNode.next === null) {
+        return null;
       } else {
-        previousNode = currNode;
-        currNode = currNode.next;
+        tempNode = tempNode.next;
       }
     }
-    previousNode.next = new _Node(newNode, currNode);
-    return console.log('Successfully added');
-  }
-  insertAfter(newNode, value) {
-    let currNode = this.head;
-    let previousNode = this.head;
-
-    if (!this.head) {
-      return null;
-    }
-
-    while (currNode.value !== value) {
-      if (currNode.next === null) {
-        return new Error('Not found');
-      } else {
-        previousNode = currNode;
-        currNode = currNode.next;
-      }
-    }
-    currNode.next = new _Node(newNode, currNode.next);
-    console.log(currNode.next);
-    return console.log('Successfully added');
-  }
-  insertAt(newNode, position) {
-    let currNode = this.head;
-    let previousNode = this.head;
-
-    if (!this.head) {
-      return null;
-    }
-    let counter = 0;
-    while (counter < position) {
-      if (currNode.next === null) {
-        return new Error('Linked list not long enough');
-      } else {
-        previousNode = currNode;
-        currNode = currNode.next;
-      }
-      counter++;
-    }
-
-    previousNode.next = new _Node(newNode, currNode);
-    console.log(previousNode.next);
-    return console.log(`Successfully added at ${position}`);
+    return tempNode;
   }
 }
 
-module.exports = LinkedList;
+function listInsertAt(list, value, index) {
+  if (!list.head) {
+    return null;
+  }
+
+  let tempNode = list.head;
+  let previousNode = list.head;
+  let tempIndex = 0;
+
+  while((tempNode !== null) && (tempIndex !== index)) {
+    previousNode = tempNode;
+    tempNode = tempNode.next;
+    tempIndex++;
+  }
+  if (tempNode === null && tempIndex !== index) {
+    previousNode.value.next = value.id;
+    previousNode.next = new _Node(
+      {
+        ...value,
+        next: null
+      }, 
+      tempNode
+    );
+    return;
+  }
+  previousNode.value.next = value.id;
+  previousNode.next = new _Node(
+    {
+      ...value,
+      next: previousNode.next.value.id
+    }, 
+    tempNode
+  );
+}
+
+module.exports = {
+  LinkedList,
+  listInsertAt
+}; 
