@@ -13,10 +13,11 @@
     "start": "node src/server.js",
     "predeploy": "npm audit && npm run migrate-production",
     "deploy": "git push heroku master",
+    "deploy-password": "heroku auth:token",
     "trunc": "psql -U dunder-mifflin -d spaced-repetition -a -f seeds/trunc.tables.sql"
   },
   "keywords": [],
-  "author": "Tom `tomatao` HT <tomht@thinkful.com>",
+  "author": "William Wong, Hunter Kreshock, Tom `tomatao` HT <tomht@thinkful.com>",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

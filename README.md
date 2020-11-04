@@ -1,5 +1,35 @@
 # Spaced repetition API!
 
+## Scripts
+
+Start the application `npm start`
+
+Start nodemon for the application `npm run dev`
+
+Run the tests mode `npm test`
+
+Run the migrations up `npm run migrate`
+
+Run the migrations down `npm run migrate -- 0`
+
+Seed the local database `npm run seed`
+
+Trunc the local database `npm run trunc`
+
+Seed the test database `npm run seedtest`
+
+## Deployment Notes
+
+Check env variables for deployed database `heroku config`
+
+See details of database connection `heroku pg:credentials:url`
+
+Deploy to production `npm run deploy`
+
+When prompt for password or auth token `npm run deploy-password`
+
+`.env` file located in Trello board for project
+
 ## Local dev setup
 
 If using user `dunder-mifflin`:
@@ -14,8 +44,8 @@ If your `dunder-mifflin` user has a password be sure to set it in `.env` for all
 
 ```bash
 npm install
+env MIGRATION_DB_NAME=spaced-repetition-test 
 npm run migrate
-env MIGRATION_DB_NAME=spaced-repetition-test npm run migrate
 ```
 
 And `npm test` should work at this point
@@ -38,27 +68,3 @@ datestyle = 'iso, mdy'
 timezone = 'UTC'
 #timezone_abbreviations = 'Default'     # Select the set of available time zone
 ```
-
-## Scripts
-
-Start the application `npm start`
-
-Start nodemon for the application `npm run dev`
-
-Run the tests mode `npm test`
-
-Run the migrations up `npm run migrate`
-
-Run the migrations down `npm run migrate -- 0`
-
-Seed the database `npm run seed`
-
-Trunc the database `npm run trunc`
-
-Seed the test database `npm run seedtest`
-
-## Addtional Dev Notes
-
-- Run `heroku auth:token` when prompt for pw while deploying to heroku
-
-- .env file located in Trello board for project

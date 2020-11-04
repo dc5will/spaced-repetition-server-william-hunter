@@ -33,7 +33,7 @@ VALUES
   (10, 1, 'time', 'tiempo', 11),
   (11, 1, 'who', 'quien', 12),
   (12, 1, 'beer', 'cerveza', 13),
-  (13, 1, 'cafe', 'coffee', 14),
+  (13, 1, 'coffee', 'cafe', 14),
   (14, 1, 'kitchen', 'cocina', 15),
   (15, 1, 'computer', 'ordernador', 16),
   (16, 1, 'now', 'ahora', 17),
