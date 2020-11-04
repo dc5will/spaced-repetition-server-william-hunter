@@ -2,10 +2,15 @@
 
 ## Overview
 
-API built to support the [spaced repetition flashcard web app](https://github.com/williamwdev/spaced-repetition-client-will-hunter). Duolingo & Anki inspired web application with an added feature of utilizing the spaced repetition technique to maximize Spanish vocabulary learning effectiveness. Users are able to securely register and login to their personal account where their personal progress will be saved.  
+API built to support the [spaced repetition flashcard web app](https://github.com/williamwdev/spaced-repetition-client-will-hunter). Duolingo inspired web application with an emphasis on utilizing the spaced repetition technique to maximize Spanish vocabulary learning effectiveness. Users are able to securely register and login to their personal account where their personal progress will be saved.  
 
 - [Client-side repo](https://github.com/williamwdev/spaced-repetition-client-will-hunter)
 - [Deployed Site](https://spaced-repetition-client.now.sh)
+- [Heroku API](https://immense-harbor-42592.herokuapp.com/)
+
+Endpoints: /auth /token /language /head /guess /user
+
+This API is supported by a database with tables the users' information, our language (which can be expanded to feature other languages), and the words to practice.
 
 ## Spaced Repetition Algorithm Explained
 - Given a list of questions with corresponding "memory values", M, starting at 1.
