@@ -2,9 +2,12 @@
 
 ## Overview
 
-API built to support the [spaced repetition flashcard web app](https://github.com/williamwdev/spaced-repetition-client-will-hunter). Duolingo & Anki inspired web application with an added feature of utilizing the spaced repetition technique to maximize Spanish vocabulary learning effectiveness. User 
+API built to support the [spaced repetition flashcard web app](https://github.com/williamwdev/spaced-repetition-client-will-hunter). Duolingo & Anki inspired web application with an added feature of utilizing the spaced repetition technique to maximize Spanish vocabulary learning effectiveness. Users are able to securely register and login to their personal account where their personal progress will be saved.  
 
-### Spaced Repetition Algorithm Explained
+- [Client-side repo](https://github.com/williamwdev/spaced-repetition-client-will-hunter)
+- [Deployed Site](https://spaced-repetition-client.now.sh)
+
+## Spaced Repetition Algorithm Explained
 - Given a list of questions with corresponding "memory values", M, starting at 1.
 - Take the first question in the list and ask the question
 - If the user answers correctly, double the value of M
@@ -12,7 +15,7 @@ API built to support the [spaced repetition flashcard web app](https://github.co
 - Move the question back M places in the list
 - Thus, the words answered incorrectly will be seen more frequently by the user
 
-### Technology Used
+## Technology Used
 - [Node.js](https://github.com/nodejs/node)
 - [Express.js](https://github.com/expressjs/express)
 - [PostgreSQL](https://www.postgresql.org/)
@@ -23,10 +26,6 @@ API built to support the [spaced repetition flashcard web app](https://github.co
 - [Supertest](https://www.npmjs.com/package/supertest)
 - [Heroku](http://heroku.com/)
 - [Heroku Postgres](https://www.heroku.com/postgres)
-
-### Screenshots
-
-<img src="./screenshots/spacedreptestSS.JPG" width="600">
 
 ### Deployment Notes
 
@@ -61,6 +60,8 @@ npm run seedtest
 
 Ensure postgres server is running `pg_ctl start`
 And `npm run test` should work at this point
+
+<img src="./screenshots/spacedreptestSS.JPG" width="500">
 
 ### Configuring Postgres
 
