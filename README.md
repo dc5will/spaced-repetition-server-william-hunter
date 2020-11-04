@@ -57,4 +57,8 @@ Trunc the database `npm run trunc`
 
 Seed the test database `npm run seedtest`
 
-Heroku test
+## Addtional Dev Notes
+
+- Run `heroku auth:token` when prompt for pw while deploying to heroku
+
+- .env file located in Trello board for project

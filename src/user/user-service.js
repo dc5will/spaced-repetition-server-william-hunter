@@ -70,7 +70,7 @@ const UserService = {
         ['time', 'tiempo', 11],
         ['who', 'quien', 12],
         ['beer', 'cerveza', 13],
-        ['cafe', 'coffee', 14],
+        ['coffee', 'cafe', 14],
         ['kitchen', 'cocina', 15],
         ['computer', 'ordernador', 16],
         ['now', 'ahora', 17],
