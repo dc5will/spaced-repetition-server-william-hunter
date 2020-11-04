@@ -9,7 +9,7 @@
     "migrate": "postgrator --config postgrator-config.js",
     "seed": "psql -U dunder-mifflin -d spaced-repetition -a -f seeds/seed.tables.sql",
     "seedtest": "psql -U dunder-mifflin -d spaced-repetition-test -a -f seeds/seed.tables.sql",
-    "migrate-production": "postgrator --config postgrator-production-config.js",
+    "migrate-production": "heroku run npm run migrate",
     "start": "node src/server.js",
     "predeploy": "npm audit && npm run migrate-production",
     "deploy": "git push heroku master",
