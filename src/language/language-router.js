@@ -75,7 +75,7 @@ languageRouter
     );
     const head = list.head;
     /*if guess is correct:
-        update memory value -> * 2
+        update memory value * 2
         increase score
         move to memory_value pos
     */
